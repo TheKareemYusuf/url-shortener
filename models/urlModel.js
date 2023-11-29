@@ -6,6 +6,10 @@ const UrlSchema = new mongoose.Schema(
       type: String,
       required: [true, "Please enter the url"],
     },
+    newUrlId: {
+      type: String,
+      unique: true,
+    },
     shortenedUrl: {
       type: String,
     },

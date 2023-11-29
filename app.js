@@ -14,7 +14,7 @@ app.get("/", (req, res) => {
   res.send("Hello World, let's shorten yout url!");
 });
 
-app.use(urlRouter)
+app.use("/api/v1/", urlRouter)
 
 
 

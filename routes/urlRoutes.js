@@ -5,4 +5,6 @@ const router = express.Router();
 
 router.route("/shorten-url").post(urlController.shortenUrl);
 
+router.route("/:urlId").get(urlController.visitUrl)
+
 module.exports = router;
