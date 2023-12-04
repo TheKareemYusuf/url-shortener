@@ -13,7 +13,7 @@ const shortenUrl = async (req, res, next) => {
     }
     const newUrlId = generateUrlId();
 
-    const shortenedUrl = `${baseUrl}/${newUrlId}`
+    const shortenedUrl = `${baseUrl}/api/v1/${newUrlId}`
 
     // 3. Save both the unique id and url in the database
     const newUrl = await URL.create({
