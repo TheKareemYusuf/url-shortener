@@ -1,9 +1,15 @@
+// importing the URL model and the config file to get access to environment variables
+
 const URL = require("./../models/urlModel");
 const CONFIG = require('./../config/config');
+const AppError = require('./../utils/appError')
 
+
+
+// Creating the function that shortens the url
 const shortenUrl = async (req, res, next) => {
   try {
-    // 1. Get the url from the body
+    // 1. Get the url from the body and the baseUrl from the config file
     const url = req.body.originalUrl;
     const baseUrl = CONFIG.BASE
 
@@ -11,11 +17,13 @@ const shortenUrl = async (req, res, next) => {
     function generateUrlId() {
       return Math.random().toString(36).slice(2);
     }
+
+    // Assign the returned value from the generate function to newUrlId
     const newUrlId = generateUrlId();
 
     const shortenedUrl = `${baseUrl}/api/v1/${newUrlId}`
 
-    // 3. Save both the unique id and url in the database
+    // 3. Save both the unique id and url to the database
     const newUrl = await URL.create({
       originalUrl: url,
       newUrlId,
@@ -34,6 +42,7 @@ const shortenUrl = async (req, res, next) => {
 };
 
 
+// creating the funtions that handles shortened url to the original url
 const visitUrl = async (req, res, next ) => {
   try {
     // 1. Get the url id from the query params
@@ -47,10 +56,7 @@ const visitUrl = async (req, res, next ) => {
       return res.redirect(url.originalUrl)
       
     } else {
-      res.status(404).json({
-        status: "fail",
-        message: "Not found"
-      })
+      return new AppError("url not found", 404)
     }
   } catch (error) {
     next(error)
