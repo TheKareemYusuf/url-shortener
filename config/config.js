@@ -6,4 +6,5 @@ module.exports = {
   PORT: process.env.PORT,
   DATABASE_URL: process.env.DATABASE_URL,
   BASE: process.env.BASE,
+  SECRET_KEY: process.env.SECRET_KEY,
 };

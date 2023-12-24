@@ -3,6 +3,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 
 const urlRouter  = require('./routes/urlRoutes');
+const userAuthRouter = require('./routes/userAuthRoutes');
 
 const app = express();
 
@@ -10,10 +11,14 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+// User authentication middleware
+require("./authentication/userAuth");
+
 app.get("/", (req, res) => {
   res.send("Hello World, let's shorten yout url!");
 });
 
+app.use("/api/v1/", userAuthRouter);
 app.use("/api/v1/", urlRouter)
 
 
