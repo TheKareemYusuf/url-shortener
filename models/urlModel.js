@@ -23,12 +23,9 @@ const UrlSchema = new mongoose.Schema(
       // get the creator from creatorSchema
       ref: "User",
     },
-    ownerId: {
-      type: mongoose.Schema.Types.ObjectId,
-      // required: true,
-      // get the creator from creatorSchema
-      ref: "User",
-    },
+    ownerId: { 
+      type: mongoose.Schema.Types.ObjectId, 
+      ref: "User" },
   },
   { timestamps: true }
 );

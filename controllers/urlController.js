@@ -3,6 +3,7 @@
 const URL = require("./../models/urlModel");
 const CONFIG = require("./../config/config");
 const AppError = require("./../utils/appError");
+const User = require("./../models/userModel");
 
 // Creating the function that shortens the url
 const shortenUrl = async (req, res, next) => {
@@ -28,7 +29,7 @@ const shortenUrl = async (req, res, next) => {
       originalUrl: url,
       newUrlId,
       shortenedUrl,
-      // ownerId: req.user._id,
+      ownerId: req.user._id,
     });
 
     // 4. Return the shortened url
@@ -66,5 +67,32 @@ const visitUrl = async (req, res, next) => {
     next(error);
   }
 };
+
+// const getAllUrl = async (req, res, next) => {
+//   try {
+//     // get user id
+//     const id = req.user._id;
+//     const user = await User.findById(id);
+
+//     console.log(id);
+//     console.log(user);
+
+//     if (!user) {
+//       return next(new AppError("User not found", 404));
+//     }
+//     // use user id to query url database
+//     const allUrl = await URL.find().where("ownerId").equals(id);
+//     console.log(allUrl);
+//     // return all documents that matches the user id in url db
+//     res.status(200).json({
+//       status: "success",
+//       data: allUrl,
+//       message: "All shortened user by you",
+//     });
+//   } catch (error) {
+//     next(error);
+//   }
+// };
+
 
 module.exports = { shortenUrl, visitUrl };
